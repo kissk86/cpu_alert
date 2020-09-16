@@ -31,18 +31,16 @@ while (1 -eq 1 ) {
     Write-Host "CPU value: $CpuLoad"
     Write-Host "* * * * * * * * * * *"
 
-    if (($CpuLoad -ge $cpu_alert_value) -AND ($CpuLoad_previous_value -ge $cpu_alert_value)) {
+    if (($CpuLoad -gt $cpu_alert_value) -AND ($CpuLoad_previous_value -gt $cpu_alert_value)) {
         # Send message
         Write-Host "Send message - "$(get-date -f yyyy-MM-dd) - $(Get-Date -f HH-mm)
         Send-TelegramTextMessage -bottoken $MyToken -ChatID $ChatID -Message $chat_msg
     }
-    else {
-        $CpuLoad_previous_value = $CpuLoad
-    } 
+
+    $CpuLoad_previous_value = $CpuLoad
 
     # waiting
     Start-Sleep -Seconds $waiting_time
-
 }
 
 # Stop log records
